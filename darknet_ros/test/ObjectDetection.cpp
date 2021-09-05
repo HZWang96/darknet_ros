@@ -93,17 +93,19 @@ bool sendImageToYolo(ros::NodeHandle nh, const std::string& pathToTestImage) {
   return true;
 }
 
-TEST(ObjectDetection, DISABLED_DetectDog) {
+TEST(ObjectDetection, DetectDog) {
   srand(static_cast<unsigned int>(time(nullptr)));
   ros::NodeHandle nodeHandle("~");
-
+	
   // Path to test image.
-  std::string pathToTestImage = darknetFilePath_;
-  pathToTestImage += "/data/";
+  std::string pathToTestImage = ros::package::getPath("darknet_ros");
+  //std::string pathToTestImage = darknetFilePath_;
+  pathToTestImage += "/doc/";
   pathToTestImage += "dog";
   pathToTestImage += ".jpg";
 
   // Send dog image to yolo.
+  ASSERT_TRUE(sendImageToYolo(nodeHandle, pathToTestImage));
   ASSERT_TRUE(sendImageToYolo(nodeHandle, pathToTestImage));
   ASSERT_TRUE(sendImageToYolo(nodeHandle, pathToTestImage));
 
@@ -180,16 +182,19 @@ TEST(ObjectDetection, DetectANYmal) {
   EXPECT_LT(centerErrorPersonY, 30);
 }
 
-TEST(ObjectDetection, DISABLED_DetectPerson) {
+
+TEST(ObjectDetection, DetectPerson) {
   srand(static_cast<unsigned int>(time(nullptr)));
   ros::NodeHandle nodeHandle("~");
 
   // Path to test image.
-  std::string pathToTestImage = darknetFilePath_;
-  pathToTestImage += "/data/";
+  std::string pathToTestImage = ros::package::getPath("darknet_ros");
+  //std::string pathToTestImage = darknetFilePath_;
+  pathToTestImage += "/doc/";
   pathToTestImage += "person";
   pathToTestImage += ".jpg";
 
+  ASSERT_TRUE(sendImageToYolo(nodeHandle, pathToTestImage));
   ASSERT_TRUE(sendImageToYolo(nodeHandle, pathToTestImage));
   ASSERT_TRUE(sendImageToYolo(nodeHandle, pathToTestImage));
 
