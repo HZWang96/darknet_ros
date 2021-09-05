@@ -54,6 +54,7 @@ extern "C" {
 #include "parser.h"
 #include "region_layer.h"
 #include "utils.h"
+#include "blas.h"  // for functions fill_cpu() and axpy_cpu()
 }
 
 // Image interface.
@@ -61,7 +62,7 @@ extern "C" {
 
 extern "C" cv::Mat image_to_mat(image im);
 extern "C" image mat_to_image(cv::Mat m);
-extern "C" int show_image(image p, const char* name, int ms);
+//extern "C" int show_image(image p, const char* name, int ms);  // conflicting declaration, not needed anymore
 
 namespace darknet_ros {
 
