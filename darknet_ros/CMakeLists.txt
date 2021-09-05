@@ -151,13 +151,13 @@ set(DARKNET_CUDA_FILES
 
 if (CUDA_FOUND)
 
-  link_directories(
-    ${CUDA_TOOLKIT_ROOT_DIR}/lib64
-  )
-
   #link_directories(
-  #  /usr/local/cuda/lib64
+  #  ${CUDA_TOOLKIT_ROOT_DIR}/lib64
   #)
+
+  link_directories(
+    /usr/local/cuda/lib64
+  )
 
   cuda_add_library(${PROJECT_NAME}_lib
     ${PROJECT_LIB_FILES} ${DARKNET_CORE_FILES}
@@ -165,17 +165,17 @@ if (CUDA_FOUND)
   )
 
   target_link_libraries(${PROJECT_NAME}_lib
-    #m
-    #pthread
-    #stdc++
+    m
+    pthread
+    stdc++
     cuda
     cudart
     cublas
     curand
-    #${Boost_LIBRARIES}
-    #${OpenCV_LIBRARIES}
-    #${catkin_LIBRARIES}
-    #${OpenCV_LIBS}
+    ${Boost_LIBRARIES}
+    ${OpenCV_LIBRARIES}
+    ${catkin_LIBRARIES}
+    ${OpenCV_LIBS}
   )
 
   cuda_add_executable(${PROJECT_NAME}
@@ -280,13 +280,13 @@ if(CATKIN_ENABLE_TESTING)
     execute_process(COMMAND wget http://pjreddie.com/media/files/yolov2.weights -P ${PATH})
   endif()]]
 
-  # Download yolov4.weights
+  #[[# Download yolov4.weights
   set(FILE "${PATH}/yolov4.weights")
   message(STATUS "Checking and downloading yolov4.weights if needed ...")
   if (NOT EXISTS "${FILE}")
     message(STATUS "... file does not exist. Downloading now ...")
     execute_process(COMMAND wget https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights -P ${PATH})
-  endif()
+  endif()]]
 
   find_package(rostest REQUIRED)
 
